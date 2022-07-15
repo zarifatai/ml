@@ -1,4 +1,4 @@
-from sklearn.externals import joblib
+import joblib
 from sklearn import datasets
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import MinMaxScaler

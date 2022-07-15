@@ -1,7 +1,7 @@
 import models.ml.classifier as clf
 
 from fastapi import FastAPI, Body
-from sklearn.externals import joblib
+import joblib
 from models.iris import Iris
 
 app = FastAPI(title="Iris ML API", description="API for Iris dataset ML model", version="1.0")

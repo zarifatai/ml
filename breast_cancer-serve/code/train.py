@@ -14,6 +14,13 @@ import joblib
 import gzip
 
 
+"""
+Data retrieved from: https://archive.ics.uci.edu/ml/machine-learning-databases/breast-cancer-wisconsin/ and renamed to breast_cancer.csv
+
+Filename: breast-cancer-wisconsin.data
+"""
+
+
 # load and preprocess data
 data = pd.read_csv("../data/breast_cancer.csv", header=None)
 data = data.iloc[:, 1:]

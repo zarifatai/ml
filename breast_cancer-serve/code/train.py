@@ -7,8 +7,6 @@ from sklearn.svm import SVC
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.impute import SimpleImputer
 from sklearn.pipeline import Pipeline
-from sklearn.metrics import ConfusionMatrixDisplay
-import matplotlib.pyplot as plt
 import pandas as pd
 import joblib
 import gzip
@@ -22,7 +20,7 @@ Filename: breast-cancer-wisconsin.data
 
 
 # load and preprocess data
-data = pd.read_csv("../data/breast_cancer.csv", header=None)
+data = pd.read_csv("data/breast_cancer.csv", header=None)
 data = data.iloc[:, 1:]
 
 add_nans = pd.Series([None if x == "?" else x for x in data.iloc[:, 5]])  # replace '?' with NaNs
@@ -57,4 +55,4 @@ pipe.fit(X_train, y_train)
 print("Accuracy:", pipe.score(X_test, y_test))
 
 # export model
-joblib.dump(pipe, gzip.open("../model/model_binary.dat.gz", "wb"))
+joblib.dump(pipe, gzip.open("model/model_binary.dat.gz", "wb"))

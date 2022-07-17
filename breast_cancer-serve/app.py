@@ -1,6 +1,5 @@
 import datetime
 from flask import request
-import pandas as pd
 from microservice import app
 from microservice.functions import get_model_response
 

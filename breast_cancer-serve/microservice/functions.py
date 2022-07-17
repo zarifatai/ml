@@ -1,5 +1,6 @@
-import pandas as pd
+import json
 from microservice import model
+import numpy as np
 
 
 def predict(X, model):
@@ -7,8 +8,8 @@ def predict(X, model):
     return prediction
 
 
-def get_model_response(json_data):
-    X = pd.DataFrame.from_dict(json_data)
+def get_model_response(input_dict):
+    X = np.array(input_dict["input"]).reshape(1, -1)
     prediction = predict(X, model)
     if prediction == 1:
         label = "M"

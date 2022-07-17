@@ -1,4 +1,3 @@
-import json
 from microservice import model
 import numpy as np
 

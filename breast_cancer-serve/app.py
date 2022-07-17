@@ -1,4 +1,3 @@
-import datetime
 from flask import request
 from microservice import app
 from microservice.functions import get_model_response

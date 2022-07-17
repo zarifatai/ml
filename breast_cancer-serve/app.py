@@ -1,8 +1,8 @@
 import datetime
 from flask import request
 import pandas as pd
-from ms import app
-from ms.functions import get_model_response
+from microservice import app
+from microservice.functions import get_model_response
 
 
 model_name = "Breast Cancer Wisconsin"

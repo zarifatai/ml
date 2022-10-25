@@ -1,9 +1,11 @@
 FROM python:3.10-slim
 
-WORKDIR /app
+WORKDIR /code
 
-COPY main.py model.py weights.txt requirements.txt ./
+COPY ./requirements.txt ./
 
-RUN pip install -r requirements.txt
+RUN pip install --no-cache-dir --upgrade -r requirements.txt
 
-CMD [""]
+COPY ./api ./
+
+CMD ["uvicorn", "api.main:app", "--host", "0.0.0.0", "--port", "8000"]

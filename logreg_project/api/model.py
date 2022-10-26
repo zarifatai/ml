@@ -1,26 +1,45 @@
 import numpy as np
+from pydantic import BaseModel
+
+
+class Sample(BaseModel):
+    mean_radius: float
+    mean_texture: float
+    mean_smoothness: float
+    mean_compactness: float
+    mean_symmetry: float
+    mean_fractal_dimension: float
+    radius_error: float
+    texture_error: float
+    smoothness_error: float
+    compactness_error: float
+    concave_points_error: float
+    symmetry_error: float
+    worst_symmetry: float
+    worst_fractal_dimension: float
 
 
 class Model:
-    def __init__(self, threshold=0.5, weights_file="weights.txt"):
+    def __init__(self, threshold: float = 0.5, weights_file: str = "./weights.txt"):
         self.weights = self.__get_weights(weights_file)
         self.threshold = threshold
 
-    def predict_proba(self, X):
+    def predict_proba(self, sample: Sample):
+        X = list(sample.dict().values())
         X = self.__normalize(X)
         return self.__logit_function(X, self.weights)
 
-    def predict(self, X):
-        proba = self.predict_proba(X)
+    def predict(self, sample: Sample):
+        proba = self.predict_proba(sample)
         return np.where(proba >= self.threshold, 1, 0)
 
-    def __logit_function(self, X):
+    def __logit_function(self, X: list[float]):
         return 1 / (1 + np.exp(-X.dot(self.weights)))
 
-    def __normalize(self, X):
+    def __normalize(self, X: list[float]):
         return X / (X.max(axis=0) + np.spacing(0))
 
-    def __get_weights(self, weights_file):
+    def __get_weights(self, weights_file: str):
         with open(weights_file) as f:
             contents = f.read()
             contents = contents.strip("[] ")

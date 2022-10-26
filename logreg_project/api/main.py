@@ -1,26 +1,16 @@
-import uvicorn
 from fastapi import FastAPI
-from model import Model
+from model import Model, Sample
 
 
 app = FastAPI()
 model = Model()
 
 
-@app.get("/")
-def root():
-    return {"message": "Hello, World!"}
-
-
 @app.post("/predict")
-def predict(X):
-    return model.predict(X)
+def predict(sample: Sample):
+    return {"prediction": model.predict(sample)}
 
 
 @app.post("predict_proba")
-def predict_proba(X):
-    return model.predict_proba(X)
-
-
-if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+def predict_proba(sample: Sample):
+    return {"probability prediction": model.predict_proba(sample)}

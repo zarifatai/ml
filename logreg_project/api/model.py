@@ -25,18 +25,18 @@ class Model:
         self.threshold = threshold
 
     def predict_proba(self, sample: Sample):
-        X = list(sample.dict().values())
+        X = np.array([1] + list(sample.dict().values()))
         X = self.__normalize(X)
-        return self.__logit_function(X, self.weights)
+        return self.__logit_function(X)
 
     def predict(self, sample: Sample):
         proba = self.predict_proba(sample)
-        return np.where(proba >= self.threshold, 1, 0)
+        return 1 if proba >= self.threshold else 0
 
     def __logit_function(self, X: list[float]):
         return 1 / (1 + np.exp(-X.dot(self.weights)))
 
-    def __normalize(self, X: list[float]):
+    def __normalize(self, X: np.ndarray):
         return X / (X.max(axis=0) + np.spacing(0))
 
     def __get_weights(self, weights_file: str):

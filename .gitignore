@@ -3,3 +3,6 @@
 __pycache__/
 *.py[cod]
 */data/
+**/node_modules
+*.csv
+*.txt

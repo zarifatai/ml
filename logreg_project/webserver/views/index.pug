@@ -1,0 +1,7 @@
+extends layout
+
+block content
+  h1(class='text-3xl font-bold tracking-tight text-gray-900')= title
+  p Welcome to #{title}
+  form(action='#', method='POST')
+    input(type='date', class='block w-full flex-1 rounded-none rounded-r-md border-gray-300 focus:border-indigo-500 sm:text-sm')

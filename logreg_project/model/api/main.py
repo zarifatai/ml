@@ -14,3 +14,9 @@ def predict(sample: Sample):
 @app.post("/predict_proba")
 def predict_proba(sample: Sample):
     return {"probability prediction": model.predict_proba(sample)}
+
+
+@app.get("/features")
+def get_features():
+    features = Sample.__fields__.keys()
+    return [x.replace("_", " ").capitalize() for x in features]

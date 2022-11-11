@@ -27,11 +27,10 @@ router.post('/predict', (req, res, next) => {
   };
 
   helpers.getPrediction(URL_PREDICT, modelInput).then(prediction => {
-    console.log('data received in webserver:', prediction)
     res.send(prediction)
   })
 
-  // helpers.saveToDb(model_input);
+  // helpers.saveToDb(modelInput);
 })
 
 module.exports = router

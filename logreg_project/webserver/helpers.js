@@ -13,7 +13,7 @@ const getPrediction = async (urlPredict, modelInput) => {
   } else { return { error: res.status } }
 }
 
-// const saveToDb = (model_input) => {
+// const saveToDb = (modelInput) => {
 //     // code
 // }
 

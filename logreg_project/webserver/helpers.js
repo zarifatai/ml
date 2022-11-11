@@ -1,19 +1,16 @@
-// function does not work yet
-const getPrediction = async (url_predict, model_input) => {
-  let prediction = null
-  fetch(url_predict, {
+const getPrediction = async (urlPredict, modelInput) => {
+  const res = await fetch(urlPredict, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
-    body: JSON.stringify(model_input),
+    body: JSON.stringify(modelInput)
   })
-		.then(res => {return res.json()})
-		.then(output => {
-			console.log(output)
-			prediction = output
-		})
-  return prediction 
+
+  if (res.status === 200) {
+    const prediction = await res.json()
+    return prediction
+  } else { return { error: res.status } }
 }
 
 // const saveToDb = (model_input) => {

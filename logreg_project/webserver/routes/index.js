@@ -1,36 +1,37 @@
-var helpers = require('../helpers')
-var express = require('express');
-var router = express.Router();
+const helpers = require('../helpers')
+const express = require('express')
+const router = express.Router()
 
-const model_api_url = 'http://localhost:8080'
+const MODEL_API_URL = 'http://localhost:8080'
 
-const url_features = model_api_url + '/features'
-features = null
-fetch(url_features)
-  .then(data => {return data.json()})
-  .then(output => {features = output});
+const URL_FEATURES = MODEL_API_URL + '/features'
+let features = null
+fetch(URL_FEATURES)
+  .then(data => { return data.json() })
+  .then(output => { features = output })
 
 router.get('/', (req, res, next) => {
   res.render('index', {
     title: 'Skin Cancer Predictor',
-    features: features,
-  });
-});
+    features
+  })
+})
 
 router.post('/predict', (req, res, next) => {
-  url_predict = model_api_url + '/predict'
+  const URL_PREDICT = MODEL_API_URL + '/predict'
 
-  values = req.body
-  model_input = {};
+  const values = req.body
+  const modelInput = {}
   for (let i = 0; i < values.length; i++) {
-    model_input[features[i].toLowerCase().replaceAll(' ', '_')] = values[i];
+    modelInput[features[i].toLowerCase().replaceAll(' ', '_')] = values[i]
   };
 
-  prediction = helpers.getPrediction(url_predict, model_input)
-  console.log("test", prediction)
-  // res.send(helpers.getPrediction(url_predict, model_input));
+  helpers.getPrediction(URL_PREDICT, modelInput).then(prediction => {
+    console.log('data received in webserver:', prediction)
+    res.send(prediction)
+  })
+
   // helpers.saveToDb(model_input);
-});
+})
 
-module.exports = router;
-
+module.exports = router

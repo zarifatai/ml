@@ -4,10 +4,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        typewriter: ['Typewriter', 'Consolas']
-      },
-      colors: {
-        'telegram-yellow': '#ffd88a'
+        serif: ['serif', 'Times New Roman']
       }
     }
   },

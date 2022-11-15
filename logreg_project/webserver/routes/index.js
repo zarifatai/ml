@@ -12,7 +12,7 @@ fetch(URL_FEATURES)
 
 router.get('/', (req, res, next) => {
   res.render('index', {
-    title: 'Skin Cancer Predictor',
+    title: 'Breast Cancer Wisconsin (Diagnostic) Data Set',
     features
   })
 })

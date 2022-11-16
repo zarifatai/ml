@@ -24,14 +24,20 @@ class Model:
         self.weights = self.__get_weights(weights_file)
         self.threshold = threshold
 
-    def predict_proba(self, sample: Sample):
+    def predict(self, sample: Sample):
+        proba = self.__predict_proba(sample)
+        prediction = 1 if proba >= self.threshold else 0
+        prediction_text = "Benign" if prediction == 1 else "Malignant"
+        return {
+            "prediction": prediction,
+            "prediction_text": prediction_text,
+            "prediction_proba": proba,
+            }
+
+    def __predict_proba(self, sample: Sample):
         X = np.array([1] + list(sample.dict().values()))
         X = self.__normalize(X)
         return self.__logit_function(X)
-
-    def predict(self, sample: Sample):
-        proba = self.predict_proba(sample)
-        return 1 if proba >= self.threshold else 0
 
     def __logit_function(self, X: list[float]):
         return 1 / (1 + np.exp(-X.dot(self.weights)))

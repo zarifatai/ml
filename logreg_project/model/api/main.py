@@ -8,7 +8,7 @@ model = Model()
 
 @app.post("/predict")
 def predict(sample: Sample):
-    return {"prediction": model.predict(sample)}
+    return  model.predict(sample)
 
 
 @app.post("/predict_proba")

@@ -1,13 +1,14 @@
 extends layout
 
 block content
-  div(id='container', class='w-1/2 m-auto mt-10 mb-5 font-serif')
-    h1(class='text-3xl font-bold tracking-tight text-black mb-2')= title
-    p Features are computed from a digitized image of a fine needle aspirate (FNA) of a breast mass.  They describe characteristics of the cell nuclei present in the image. A few of the images can be found at #[a(href='http://www.cs.wisc.edu/~street/images/') http://www.cs.wisc.edu/~street/images/].
-    div(id="form-container", class="grid grid-cols-2 gap-4 my-5")
+  div(id='container', class='w-1/2 m-auto mt-6 mb-5 font-serif text-gray-300')
+    h1(class='text-3xl font-bold tracking-tight text-black mb-2 text-gray-300')= title
+    p Features are computed from a digitized image of a fine needle aspirate (FNA) of a breast mass.  They describe characteristics of the cell nuclei present in the image. A few of the images can be found at #[a(href='http://www.cs.wisc.edu/~street/images/', target='_blank') http://www.cs.wisc.edu/~street/images/].
+    div(id='form-container', class='grid grid-cols-2 gap-4 my-7')
       each feature in features
         div(id='input')
           p #{feature}
-          input(type="number", step=0.01, min=0, class="focus:border-none border-0 outline-0 border-b-[1px] border-black")
-    button(id="post_feature_values", class="border-[1px] border-black w-1/3", type="button", value="Submit", onclick="postFeatureValues()") Submit
-    p(id="prediction")
+          input(type='number', step=0.01, min=0, class='focus:border-none border-0 outline-0 border-b-[1px] border-gray-300 bg-gray-900')
+    div(id='model_container')
+      button(id='post_feature_values', class='border-[1px] border-gray-300 w-1/3 mr-[50px] hover:bg-gray-800', type='button', value='Submit', onclick='postFeatureValues()') Classify
+      p(id='model_response', class='inline font-bold')

@@ -1,32 +1,31 @@
-const server_url = 'http://localhost:3000'
-// const path = '/features'
-// const url = server_url + path
+const serverUrl = 'http://localhost:3000'
 
-// fetch(url)
-// 	.then(data => {return data.json()})
-// 	.then(res => {console.log(res)})
+// eslint-disable-next-line no-unused-vars
+function postFeatureValues () {
+  const responseText = document.getElementById('model_response')
+  responseText.innerHTML = 'Retrieving classification...'
+  const inputs = document.getElementsByTagName('input')
+  let values = []
+  Array.from(inputs).forEach(function (element) {
+    values.push(element.value)
+  })
+  values = values.map(Number)
 
-function postFeatureValues() {
-	let inputs = document.getElementsByTagName('input');
-	let values = [];
-	Array.from(inputs).forEach(function (element) {
-		values.push(element.value)
-      });
-	values = values.map(Number);
-
-	const predict_path = '/predict';
-	fetch(server_url + predict_path, {
-		method: 'POST',
-		headers: {
-		  'Content-Type': 'application/json',
-		},
-		body: JSON.stringify(values),
-	  })
-		.then((response) => response.json())
-		.then((data) => {
-		  console.log('Success:', data);
-		})
-		.catch((error) => {
-		  console.error('Error:', error);
-		});
+  const predictPath = '/predict'
+  fetch(serverUrl + predictPath, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(values)
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log('Success:', data)
+      responseText.innerHTML = data.prediction_text
+    })
+    .catch((error) => {
+      console.error('Error:', error)
+      responseText.innerHTML = 'Failed to retrieve classification'
+    })
 }

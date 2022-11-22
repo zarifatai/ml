@@ -21,7 +21,6 @@ function postFeatureValues () {
   })
     .then((response) => response.json())
     .then((data) => {
-      console.log('Success:', data)
       responseText.innerHTML = data.prediction_text
     })
     .catch((error) => {

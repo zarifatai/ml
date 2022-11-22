@@ -1,0 +1,11 @@
+services:
+  modelapi:
+    image: "modelapi"
+    ports:
+      - "8080:8080"
+  webserver:
+    image: "webserver"
+    links:
+      - modelapi
+    ports:
+      - "3000:3000"

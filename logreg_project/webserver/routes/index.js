@@ -2,13 +2,31 @@ const helpers = require('../helpers')
 const express = require('express')
 const router = express.Router()
 
-const MODEL_API_URL = 'http://localhost:8080'
+const MODEL_API_URL = 'http://modelapi:8080'
+
+function sleep (time) {
+  return new Promise((resolve) => setTimeout(resolve, time))
+}
+
+function fetchFeatures (url, delay, tries) {
+  function onError (err) {
+    const triesLeft = tries - 1
+    if (!triesLeft) {
+      console.log('Error:', err)
+    }
+    return sleep(delay).then(() => fetchFeatures(url, delay, triesLeft))
+  }
+  return fetch(url)
+    .then(data => { return data.json() })
+    .then(output => { features = output })
+    .catch(onError)
+}
 
 const URL_FEATURES = MODEL_API_URL + '/features'
 let features = null
-fetch(URL_FEATURES)
-  .then(data => { return data.json() })
-  .then(output => { features = output })
+const tries = 5
+
+fetchFeatures(URL_FEATURES, 1000, tries)
 
 router.get('/', (req, res, next) => {
   res.render('index', {

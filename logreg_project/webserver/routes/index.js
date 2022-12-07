@@ -2,7 +2,8 @@ const helpers = require('../helpers')
 const express = require('express')
 const router = express.Router()
 
-const MODEL_API_URL = 'http://modelapi:8080'
+const MODEL_API_URL = 'http://' + process.env.MODEL_API_IP
+console.log('API:', MODEL_API_URL)
 
 function sleep (time) {
   return new Promise((resolve) => setTimeout(resolve, time))
